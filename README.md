@@ -148,17 +148,31 @@ Points get `NOT_REQUIRED`; unsupported types get `UNSUPPORTED`; invalid polygons
 ## Learning
 > Rewrite this section in your own words before submitting; it should reflect what *you* actually learned.
 
-- Why degrees can't be used for area/distance, and that "a projected CRS" is a trade-off (equal-area vs conformal), not a single right answer.
-- Axis order pitfalls (`always_xy=True`) and that a CRS must be explicit; a missing `.prj` is a data-quality problem to surface, not to hide.
-- Validating independently: comparing projected results against ellipsoidal geodesic values caught/prevented subtle errors.
-- Treating uploads as hostile input (zip-slip, zip bombs, XML entity expansion).
-- Designing for partial failure: per-feature status instead of all-or-nothing.
+While working on this assignment, I learned how to handle geospatial files such as KML and Shapefiles in a backend application. I got a better understanding of how geometries like Point, LineString, and Polygon are represented and processed.
 
+One important thing I learned was that area and length should not be calculated directly using latitude and longitude values. I learned how CRS works and why geometries need to be transformed to a suitable projected CRS before performing measurements.
+
+I also learned how to structure a FastAPI backend, handle file uploads, process files safely, design REST APIs, handle unsupported geometries without breaking the application, and separate file processing, CRS handling, and measurement logic into maintainable components.
+
+## Future Scope
+
+Some improvements I would consider for the next version are:
+
+- Add support for more geospatial formats such as GeoJSON and GeoPackage.
+- Improve automatic projected CRS selection for different geographic locations.
+- Add asynchronous/background processing for very large files.
+- Store uploaded files and processed results using cloud storage such as AWS S3.
+- Add authentication and role-based access to the APIs.
+- Add automated unit and integration tests with better test coverage.
+- Add rate limiting and stronger file validation for production use.
+- Add a simple frontend to upload files and visualize the geometries and measurements on a map.
 ## Future scope
-- Background processing (Celery/RQ) with polling or webhooks for large files.
-- PostGIS storage for spatial queries (bbox filter, intersects) and S3 for raw files.
+- Background processing (Celery/RQ) with polling or webhooks for lar- PostGIS storage for spatial queries (bbox filter, intersects) and S3 for raw files.
 - More formats: KMZ, GeoJSON, GeoPackage (via pyogrio) and multi-layer files.
 - Per-feature projection override and 3D (Z-aware) lengths.
 - Auth, per-user ownership, file deletion/TTL, rate limiting.
 - Alembic migrations, structured logging, metrics, CI (GitHub Actions running `pytest`).
 - Export of results as CSV / GeoJSON with measurements embedded.
+
+
+
